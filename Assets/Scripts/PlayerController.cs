@@ -5,81 +5,152 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //Movements
-	[SerializeField] private GameObject player;
-	[SerializeField] private float movementSpeed, rotationSpeed;
-	private Vector3 movementDirection;
-    public InputActionReference movement;
+    // Movement properties
+    [SerializeField] private GameObject player;
+    [SerializeField] private float movementSpeed, rotationSpeed, verticalLookSensitivity;
+    private Vector3 movementDirection;
+    private Vector3 turnDirection;
 
-    //Jump
+    // Camera properties
+    [SerializeField] private Transform playerCamera;
+    private float verticalRotation = 0f;
+    [SerializeField] private float verticalLookLimit = 80f;
+
+    // Player 1 (Controller) inputs
+    public InputActionReference player1Movement;
+    public InputActionReference player1Turn;
+    public InputActionReference player1Jumping;
+    public InputActionReference player1Shooting;
+
+    // Player 2 (Mouse/Keyboard) inputs
+    public InputActionReference player2Movement;
+    public InputActionReference player2Turn;
+    public InputActionReference player2Jumping;
+    public InputActionReference player2Shooting;
+
+    // Jumping
     private bool isJumping = false;
     [SerializeField] private float jumpPower;
     private Vector3 jumpForce;
-    public InputActionReference jumping;
 
-    //Gun
+    // Gun handling
     [SerializeField] private GameObject gun;
     private bool hasGun = false;
     private int bullets = 0;
 
-    //Shooting
+    // Shooting
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject bulletLaunchPosition;
     private bool isShooting = false;
-    public InputActionReference shooting;
-	
-    // Start is called before the first frame update
+
+    [SerializeField] private int playerNumber = 1; // 1 = Controller, 2 = Mouse/Keyboard
+
     void Start()
     {
         jumpForce = new Vector3(0, jumpPower, 0);
+
+        // Enable actions for Player 1
+        player1Movement.action.Enable();
+        player1Turn.action.Enable();
+        player1Jumping.action.Enable();
+
+        // Enable actions for Player 2
+        player2Movement.action.Enable();
+        player2Turn.action.Enable();
+        player2Jumping.action.Enable();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        PlayerMovement();
-
-        if (!isJumping) {
-            PlayerJump();
+        if (playerNumber == 1)
+        {
+            PlayerMovement(player1Movement);
+            HandlePlayer1Look();
+            HandleJump(player1Jumping);
+            HandleShooting(player1Shooting);
         }
-        else {
-            if (player.transform.position.y <= 1) {
+        else if (playerNumber == 2)
+        {
+            PlayerMovement(player2Movement);
+            HandleMouseLook();
+            HandleJump(player2Jumping);
+            HandleShooting(player2Shooting);
+        }
+    }
+
+    private void PlayerMovement(InputActionReference movement)
+    {
+        movementDirection = movement.action.ReadValue<Vector2>();
+        player.transform.Translate(Vector3.forward * movementDirection.y * movementSpeed * Time.deltaTime);
+        player.transform.Translate(Vector3.right * movementDirection.x * movementSpeed * Time.deltaTime);
+    }
+
+    private void HandlePlayer1Look()
+    {
+        turnDirection = player1Turn.action.ReadValue<Vector2>();
+        player.transform.Rotate(Vector3.up * turnDirection.x * rotationSpeed * Time.deltaTime);
+    }
+
+    // Handle mouse (Player 2) look - horizontal and vertical
+    private void HandleMouseLook()
+    {
+        turnDirection = player2Turn.action.ReadValue<Vector2>();
+
+        // Horizontal turning (Y-axis) with mouse
+        player.transform.Rotate(Vector3.up * turnDirection.x * rotationSpeed * Time.deltaTime);
+
+        // Vertical turning (X-axis) with mouse
+        verticalRotation -= turnDirection.y * verticalLookSensitivity * Time.deltaTime;
+        verticalRotation = Mathf.Clamp(verticalRotation, -verticalLookLimit, verticalLookLimit); // Clamp vertical rotation
+        
+        // Apply vertical rotation to the camera (up/down)
+        playerCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+    }
+
+    private void HandleJump(InputActionReference jumping)
+    {
+        if (!isJumping)
+        {
+            if (jumping.action.triggered)
+            {
+                isJumping = true;
+                player.GetComponent<Rigidbody>().AddForce(jumpForce, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            if (player.transform.position.y <= 1)
+            {
                 isJumping = false;
             }
         }
+    }
 
-        if(!isShooting && hasGun && bullets > 0 && shooting.action.triggered) {
+    private void HandleShooting(InputActionReference shooting)
+    {
+        if (!isShooting && hasGun && bullets > 0 && shooting.action.triggered)
+        {
             ShootGun();
         }
     }
-    
-    private void PlayerMovement() {
-        movementDirection = movement.action.ReadValue<Vector2>();
-        player.transform.Translate(Vector3.forward * movementDirection.y * movementSpeed * Time.deltaTime);
-        player.transform.Rotate(Vector3.up * movementDirection.x * rotationSpeed * Time.deltaTime);
-    }
 
-    private void PlayerJump() {
-        if(jumping.action.triggered) {
-            isJumping = true;
-            player.GetComponent<Rigidbody>().AddForce(jumpForce, ForceMode.Impulse);
-        }
-    }
-
-    public void GunPickedup() {
-        if(hasGun) {
+    public void GunPickedup()
+    {
+        if (hasGun)
+        {
             bullets += 10;
         }
-        else {
+        else
+        {
             bullets += 10;
             hasGun = true;
             gun.SetActive(true);
         }
     }
 
-    private void ShootGun() {
+    private void ShootGun()
+    {
         isShooting = true;
-
         bullets -= 1;
 
         GameObject bullet = Instantiate(bulletPrefab) as GameObject;
@@ -92,7 +163,8 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ShootingPause());
     }
 
-    IEnumerator ShootingPause() {
+    IEnumerator ShootingPause()
+    {
         yield return new WaitForSeconds(0.2f);
         isShooting = false;
     }
