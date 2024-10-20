@@ -67,13 +67,13 @@ public class ZombieAIController : MonoBehaviour
         
         // ** Check for Bodies Only If No Player is Detected **
         // Currently Not Implemented. Will cause Errors if uncommented.
-        // else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
-        // {
-        //     if (!(_currentState is EatBodyState))
-        //     {
-        //         ChangeState(new EatBodyState(this, navMeshAgent, animator));  // Transition to eating the body
-        //     }
-        // }
+        else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
+        {
+            if (!(_currentState is EatBodyState))
+            {
+                ChangeState(new EatBodyState(this, navMeshAgent, animator));  // Transition to eating the body
+            }
+        }
     }
 
     // Method to change the current state
@@ -132,7 +132,7 @@ public class ZombieAIController : MonoBehaviour
     // Detect whether a body is nearby and within range
     public bool IsBodyNearby()
     {
-        GameObject[] bodies = GameObject.FindGameObjectsWithTag("Z_Body");
+        GameObject[] bodies = GameObject.FindGameObjectsWithTag("Body");
         foreach (GameObject body in bodies)
         {
             float distanceToBody = Vector3.Distance(transform.position, body.transform.position);
