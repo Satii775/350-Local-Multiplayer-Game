@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ShooterEnemy
   - Zombie
+  - Body
   layers:
   - Default
   - TransparentFX
