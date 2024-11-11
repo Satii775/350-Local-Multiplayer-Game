@@ -63,6 +63,8 @@ public class ZombieAIController : MonoBehaviour
                 return; // Stop further checks once player is detected
             }
         }
+        
+        
         // ** Check for Bodies Only If No Player is Detected **
         else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
         {
