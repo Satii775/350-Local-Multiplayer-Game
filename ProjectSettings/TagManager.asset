@@ -7,6 +7,12 @@ TagManager:
   - ShooterEnemy
   - Zombie
   - Body
+  - PlayerProjectile
+  - EnemyProjectile
+  - Enemy
+  - wall
+  - ground
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -16,7 +22,7 @@ TagManager:
   - UI
   - PlayerOne
   - PlayerTwo
-  - 
+  - Ground
   - 
   - 
   - 
