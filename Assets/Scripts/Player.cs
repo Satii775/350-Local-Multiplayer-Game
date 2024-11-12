@@ -1,39 +1,134 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Include this to access SceneManager
+using UnityEngine.SceneManagement; // Required for scene management
 
 public class Player : MonoBehaviour
 {
-    public static Player instance;   // Singleton instance
-    public float health = 100f;      // Player's health
+    [Header("Health Settings")]
+    [SerializeField] private float maxHealth = 500f; // Set maximum health to 500
+    private float currentHealth;                     // Current health
+
+    private float enemyCollisionTimer = 0.5f; // Timer to track damage intervals
+    private const float damageInterval = 0.5f; // Damage interval in seconds
+    private const float enemyCollisionDamage = 50f; // Damage per interval when in contact with enemy
 
     private void Awake()
     {
-        // Ensure there is only one instance of the Player
-        if (instance == null)
+        ResetHealth(); // Initialize health to maxHealth
+    }
+
+    private void Update()
+    {
+        // Decrease the timer while in Update
+        if (enemyCollisionTimer < damageInterval)
         {
-            instance = this;  // Assign this instance to the static variable
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);  // Destroy any duplicates
+            enemyCollisionTimer += Time.deltaTime;
         }
     }
 
+    // Public method to apply damage to the player
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        Debug.Log($"Player takes {damage} damage. Health left: {health}");
+        if (damage <= 0 || currentHealth <= 0) return; // Ignore non-positive damage values or if player is already dead
 
-        if (health <= 0)
+        currentHealth -= damage;
+        Debug.Log($"Player took {damage} damage. Health left: {currentHealth}");
+
+        if (currentHealth <= 0)
         {
             Die();
         }
+        else
+        {
+            TriggerDamageFeedback();
+        }
     }
 
+    // Method to handle player death and reset the scene
     private void Die()
     {
-        Debug.Log("Player has died!");
-        // Reload the current active scene to reset the game
+        currentHealth = 0;
+        Debug.Log("Player has died. Resetting scene...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // Optional: Trigger damage feedback (e.g., visual or audio effect)
+    private void TriggerDamageFeedback()
+    {
+        Debug.Log("Player received damage feedback.");
+    }
+
+    // Public method to heal the player (optional)
+    public void Heal(float healAmount)
+    {
+        if (healAmount <= 0 || currentHealth <= 0) return;
+
+        currentHealth = Mathf.Min(currentHealth + healAmount, maxHealth);
+        Debug.Log($"Player healed by {healAmount}. Health is now {currentHealth}");
+    }
+
+    // Public method to reset player health (e.g., on respawn)
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        Debug.Log("Player health reset to max.");
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Reset the timer on initial contact with an enemy
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            enemyCollisionTimer = 0f;
+        }
+        HandleDamageSource(collision.gameObject);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        // Check if we are in continuous contact with an enemy
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Apply damage every half-second
+            if (enemyCollisionTimer >= damageInterval)
+            {
+                TakeDamage(enemyCollisionDamage);
+                enemyCollisionTimer = 0f; // Reset timer after applying damage
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // Reset the timer when no longer in contact with the enemy
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            enemyCollisionTimer = damageInterval;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Handle other damage sources
+        HandleDamageSource(other.gameObject);
+    }
+
+    // Method to handle different sources of damage based on tags
+    private void HandleDamageSource(GameObject source)
+    {
+        if (source.CompareTag("EnemyProjectile"))
+        {
+            Projectile_B projectileScript = source.GetComponent<Projectile_B>();
+            if (projectileScript != null)
+            {
+                TakeDamage(projectileScript.damage);
+                Destroy(source); // Destroy the projectile after hitting the player
+            }
+        }
+        else if (source.CompareTag("Boss"))
+        {
+            float bossContactDamage = 50f;
+            TakeDamage(bossContactDamage);
+            Debug.Log("Player took contact damage from the Boss.");
+        }
     }
 }

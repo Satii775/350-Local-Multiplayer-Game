@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 100;   // Maximum health
-    private int currentHealth;    // Current health
-    private bool isDead = false;  // Is the enemy dead?
-    public float timeBeforeDestruction = 0.5f; // Time before destroying the object after death
+    public int maxHealth = 100;
+    private int currentHealth;
+    private bool isDead = false;
+    public float timeBeforeDestruction = 0.5f;
 
-    private Rigidbody rb;         // Reference to Rigidbody for physics interactions
+    private Rigidbody rb;
 
     void Start()
     {
@@ -17,35 +17,50 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        // Reduce the enemy's health by the damage amount
+        if (isDead) return; // Ignore damage if already dead
+
         currentHealth -= damage;
         Debug.Log("Enemy took " + damage + " damage! Current health: " + currentHealth);
 
-        // If the health drops to zero or below, trigger death
-        if (currentHealth <= 0 && !isDead)
+        if (currentHealth <= 0)
         {
             Die();
         }
     }
 
-    void Die()
+    private void Die()
     {
         isDead = true;
         Debug.Log("Enemy has died!");
 
-        // Disable any movement or AI scripts
-        WanderAround wanderScript = GetComponent<WanderAround>();
-        AttackPlayer attackScript = GetComponent<AttackPlayer>();
+        var wanderScript = GetComponent<WanderAround>();
+        var attackScript = GetComponent<AttackPlayer>();
         if (wanderScript != null) wanderScript.enabled = false;
         if (attackScript != null) attackScript.enabled = false;
 
-        // Enable physics so the enemy can fall naturally, if desired
-        if (rb != null)
-        {
-            rb.isKinematic = false; // Allow the rigidbody to be affected by physics
-        }
+        if (rb != null) rb.isKinematic = false;
 
-        // Destroy the enemy object after a short delay
         Destroy(gameObject, timeBeforeDestruction);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
+        {
+            // Get the Projectile component to retrieve the damage value
+            Projectile projectileScript = collision.gameObject.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                TakeDamage(projectileScript.damage);  // Apply the damage from the projectile
+                Debug.Log($"Enemy hit by PlayerProjectile. Damage taken: {projectileScript.damage}. Current health: {currentHealth}");
+            }
+            else
+            {
+                Debug.LogWarning("PlayerProjectile collided, but no Projectile script was found.");
+            }
+
+            // Destroy the projectile on impact
+            Destroy(collision.gameObject);
+        }
     }
 }

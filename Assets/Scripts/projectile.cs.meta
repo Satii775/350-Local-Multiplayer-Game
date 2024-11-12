@@ -3,7 +3,10 @@ guid: fb2b90ba896ede9459b01a46f686f617
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - firedBy: {instanceID: 0}
+  - bloodEffectPrefab: {fileID: 2795969784072720910, guid: a70384b6451ff1d42b7447922d4db36e, type: 3}
+  - bulletHolePrefab: {fileID: 5852973347353521658, guid: 5dcffb7a51e1c40459e8a0d30ac57224, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

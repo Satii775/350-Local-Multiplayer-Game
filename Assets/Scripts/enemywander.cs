@@ -72,7 +72,7 @@ public class WanderAround : MonoBehaviour
         // Cast a ray forward to check for walls within the avoidance distance
         if (Physics.Raycast(transform.position, transform.forward, out hit, avoidanceDistance, wallLayer))
         {
-            if (hit.collider.CompareTag("Wall"))
+            if (hit.collider.CompareTag("wall"))
             {
                 return true;
             }

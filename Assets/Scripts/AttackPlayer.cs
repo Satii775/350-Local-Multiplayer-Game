@@ -1,45 +1,39 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackPlayer : MonoBehaviour
 {
-    public Transform player;               // Reference to the player
-    public float detectRange = 25f;        // Detection range
-    public float moveSpeed = 2f;           // Slow approach speed
-    public float rotationSpeed = 3f;       // Speed of rotation
-    public float stopDistance = 5f;        // Minimum distance to stop moving toward player
-    public float shootInterval = 2f;       // Time between shots
-    public float projectileSpeed = 365.76f;// Projectile speed
-    public GameObject projectilePrefab;    // Projectile prefab
-    public LayerMask wallLayer;            // Layer mask for walls
+    public Transform player;                // Reference to the player
+    public float detectRange = 25f;         // Detection range
+    public float moveSpeed = 2f;            // Approach speed
+    public float rotationSpeed = 3f;        // Rotation speed
+    public float stopDistance = 5f;         // Distance to stop moving towards player
+    public float shootInterval = 2f;        // Time between shots
+    public float projectileSpeed = 365.76f; // Speed of projectiles
+    public GameObject[] projectilePrefabs;  // Array of projectile prefabs
+    public float horizontalOffset = 0f;     // Horizontal offset from player for the shot direction
+    public float MOA = 1f;                  // Minute of Angle dispersion, 1 MOA = 1 inch at 100 yards
 
-    private float nextShootTime = 0f;      // Time to track when to shoot next
-    private bool playerDetected = false;   // Is the player detected?
+    private float nextShootTime = 0f;       // Time to shoot next
+    private int currentProjectileIndex = 0; // Current projectile index in array
 
     void Update()
     {
-        // Calculate the distance to the player
+        if (player == null)
+        {
+            Debug.LogWarning("Player reference is missing!");
+            return;
+        }
+
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // Check if the player is within detection range
+        // If player is within range, proceed with behavior
         if (distanceToPlayer <= detectRange)
         {
-            playerDetected = true;
-        }
-        else
-        {
-            playerDetected = false;
-        }
-
-        // If the player is detected, approach and shoot
-        if (playerDetected)
-        {
-            // Move toward the player if we're not too close
             if (distanceToPlayer > stopDistance)
             {
                 MoveTowardsPlayer();
             }
 
-            // Shoot at the player if it's time to shoot
             if (Time.time >= nextShootTime)
             {
                 ShootAtPlayer();
@@ -48,23 +42,15 @@ public class AttackPlayer : MonoBehaviour
         }
     }
 
-    // Move towards the player while avoiding obstacles
+    // Move towards the player
     void MoveTowardsPlayer()
     {
         Vector3 directionToPlayer = (player.position - transform.position).normalized;
-
-        // Only move if there is no wall in front
-        if (!IsWallInFront())
-        {
-            // Move towards the player
-            transform.position += directionToPlayer * moveSpeed * Time.deltaTime;
-
-            // Rotate smoothly to face the player
-            RotateTowardsPlayer();
-        }
+        transform.position += directionToPlayer * moveSpeed * Time.deltaTime;
+        RotateTowardsPlayer();
     }
 
-    // Rotate smoothly to face the player
+    // Rotate to face the player
     void RotateTowardsPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
@@ -72,36 +58,86 @@ public class AttackPlayer : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
-    // Check if a wall is in front of the enemy
-    bool IsWallInFront()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, wallLayer))
-        {
-            return hit.collider != null && hit.collider.CompareTag("Wall");
-        }
-        return false;
-    }
-
-    // Shoot a projectile at the player
+    // Shoot a projectile towards the player with an optional horizontal offset and MOA-based dispersion
     void ShootAtPlayer()
     {
-        // Instantiate the projectile
-        GameObject projectile = Instantiate(projectilePrefab, transform.position + transform.forward * 1.5f, Quaternion.identity);
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (projectilePrefabs.Length == 0)
+        {
+            Debug.LogError("No projectile prefabs assigned to AttackPlayer!");
+            return;
+        }
 
-        // Calculate the direction to the player and shoot
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        rb.velocity = directionToPlayer * projectileSpeed;
+        // Determine shooting direction with MOA dispersion
+        Vector3 shootDirection = GetShootDirectionWithOffsetAndMOA();
 
-        Debug.Log("Enemy shot at the player.");
+        // Ensure projectile index is within array bounds
+        if (currentProjectileIndex >= projectilePrefabs.Length)
+        {
+            currentProjectileIndex = 0;
+        }
+
+        // Instantiate and shoot projectile
+        GameObject projectilePrefab = projectilePrefabs[currentProjectileIndex];
+        GameObject projectileInstance = Instantiate(
+            projectilePrefab,
+            transform.position + transform.forward * 1.5f, // Adjust position to spawn in front of enemy
+            Quaternion.LookRotation(shootDirection)
+        );
+
+        // Apply velocity to projectile
+        Rigidbody rb = projectileInstance.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = shootDirection * projectileSpeed;
+        }
+        else
+        {
+            Debug.LogError("Projectile prefab is missing a Rigidbody component!");
+        }
+
+        // Assign this GameObject as the shooter
+        Projectile_A projectileScript = projectileInstance.GetComponent<Projectile_A>();
+        if (projectileScript != null)
+        {
+            projectileScript.firedBy = this.gameObject;
+        }
+        else
+        {
+            Debug.LogWarning("Projectile does not have a Projectile_A script.");
+        }
+
+        Debug.Log("Enemy shot projectile: " + projectilePrefab.name);
+
+        // Cycle to the next projectile
+        currentProjectileIndex = (currentProjectileIndex + 1) % projectilePrefabs.Length;
     }
 
-    // Reaction to being shot by the player
-    public void OnShotByPlayer()
+    // Calculate shooting direction with an adjustable horizontal offset and MOA-based dispersion
+    Vector3 GetShootDirectionWithOffsetAndMOA()
     {
-        // Trigger aggressive behavior if the enemy is shot
-        playerDetected = true;
-        Debug.Log("Enemy has been shot and is now aggressive.");
+        // Calculate the direction to the player
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+
+        // Calculate the right vector relative to the enemy's forward direction
+        Vector3 rightOffset = transform.right * horizontalOffset;
+
+        // Apply horizontal offset
+        Vector3 adjustedDirection = directionToPlayer + rightOffset;
+
+        // Apply realistic MOA-based dispersion
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // Convert MOA to radians and then calculate the spread in Unity units
+        // 1 MOA ≈ 0.000290888 radians (1 inch at 100 yards)
+        float dispersionRadius = Mathf.Tan(MOA * 0.000290888f) * distanceToPlayer;
+
+        // Random offset within the cone
+        float randomOffsetX = Random.Range(-dispersionRadius, dispersionRadius);
+        float randomOffsetY = Random.Range(-dispersionRadius, dispersionRadius);
+
+        Vector3 dispersionOffset = new Vector3(randomOffsetX, randomOffsetY, 0f);
+        adjustedDirection += transform.TransformDirection(dispersionOffset); // Transform local offset to world space
+
+        return adjustedDirection.normalized;
     }
 }

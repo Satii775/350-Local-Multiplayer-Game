@@ -63,8 +63,6 @@ public class ZombieAIController : MonoBehaviour
                 return; // Stop further checks once player is detected
             }
         }
-        
-        
         // ** Check for Bodies Only If No Player is Detected **
         else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
         {
@@ -89,31 +87,22 @@ public class ZombieAIController : MonoBehaviour
     // Detect whether the player is within the zombie's vision range
     public bool IsPlayerInSight()
     {
-        // Ensure the player object is still in the scene
         if (player == null) return false;
 
-        // Get the direction to the player
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-
-        // Calculate the angle between the zombie's forward direction and the direction to the player
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-
-        // Define the field of view (FOV) of the zombie, in this case, 270 degrees
         float fieldOfView = 270f;
 
-        // Check if the player is within the FOV
         if (angleToPlayer > fieldOfView / 2)
         {
-            return false; // Player is outside the zombie's field of view
+            return false;
         }
 
-        // Check if the player is within range and there's nothing blocking the line of sight
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        // Ensure the player is within the zombie's vision range
         if (distanceToPlayer > visionRange)
         {
-            return false; // Player is too far away
+            return false;
         }
 
         RaycastHit hit;
@@ -121,11 +110,11 @@ public class ZombieAIController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                return true;  // Player is in sight
+                return true;
             }
         }
 
-        return false;  // Player is not in sight
+        return false;
     }
 
     // Detect whether a body is nearby and within range
@@ -135,18 +124,17 @@ public class ZombieAIController : MonoBehaviour
         foreach (GameObject body in bodies)
         {
             float distanceToBody = Vector3.Distance(transform.position, body.transform.position);
-            if (distanceToBody <= bodyDetectionRange)  // Check if the body is within the detection range
+            if (distanceToBody <= bodyDetectionRange)
             {
                 Debug.Log("Body detected within range.");
-                return true;  // Body is nearby
+                return true;
             }
         }
-        return false;  // No bodies nearby
+        return false;
     }
 
     public bool IsWithinAttackRange()
     {
-        // Ensure the player object is still in the scene
         if (player == null) return false;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -161,12 +149,10 @@ public class ZombieAIController : MonoBehaviour
 
     public bool IsPlayerInRange(float range)
     {
-        // Ensure the player object is still in the scene
         if (player == null) return false;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        // Return true if the player is within the given range
         return distanceToPlayer <= range;
     }
 
@@ -209,7 +195,26 @@ public class ZombieAIController : MonoBehaviour
 
         if (health <= 0)
         {
-            ChangeState(new DieState(this, navMeshAgent, animator));  // Trigger death state when health is zero
+            ChangeState(new DieState(this, navMeshAgent, animator));
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerProjectile"))
+        {
+            // Check if the projectile has a "Projectile" component to retrieve damage information
+            Projectile projectileScript = collision.gameObject.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                TakeDamage(projectileScript.damage);  // Apply the damage from the projectile
+                Destroy(collision.gameObject);  // Destroy the projectile on impact
+                Debug.Log($"Zombie hit by PlayerProjectile. Damage taken: {projectileScript.damage}. Current health: {health}");
+            }
+            else
+            {
+                Debug.LogWarning("PlayerProjectile collided, but no Projectile script was found.");
+            }
         }
     }
 }

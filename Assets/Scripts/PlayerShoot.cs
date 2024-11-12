@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerShooter : MonoBehaviour
 {
@@ -11,41 +12,87 @@ public class PlayerShooter : MonoBehaviour
     public float zoomSpeed = 5f;
 
     [Header("Projectile Settings")]
-    public GameObject projectilePrefab;
+    public GameObject pistolProjectilePrefab;
+    public GameObject mp5ProjectilePrefab;
+    public GameObject m4ProjectilePrefab;
+    public GameObject shotgunPelletPrefab;
     public Transform firePoint;
-    public float projectileSpeed = 365.76f; // 1200 fps converted to meters per second
-    public float projectileGravity = 9.81f; // Realistic gravity for bullet drop
+    public float projectileSpeed = 365.76f;
 
     [Header("Pistol Settings")]
-    public bool hasPistol = false;           // Do you have a pistol?
-    public int pistolAmmo = 45;              // Total ammo for the pistol
-    private int currentPistolAmmo = 15;      // Ammo in the current magazine
-    public int pistolMagazineSize = 15;      // Pistol holds 15 bullets per magazine
-    private float pistolFireRate = 1f;       // Fire rate of the pistol (semi-auto, 1 shot per trigger)
-    private float pistolReloadTime = 2f;     // Time it takes to reload the pistol
-    private bool isPistolReloading = false;  // Is the pistol reloading?
+    public bool hasPistol = false;
+    public int pistolAmmo = 45;
+    private int currentPistolAmmo = 15;
+    public int pistolMagazineSize = 15;
+    private float pistolReloadTime = 2f;
+    private bool isPistolReloading = false;
+    public float pistolMOA = 1f;
 
     [Header("MP5 Settings")]
-    public bool hasMP5 = false;              // Do you have an MP5?
-    public int mp5Ammo = 120;                // Total ammo for the MP5
-    public int currentMP5Ammo = 30;      // Ammo in the current MP5 magazine
-    public int mp5MagazineSize = 30;         // MP5 holds 30 bullets per magazine
-    private float mp5FireRate = 950f / 60f;  // MP5 fires at 950 rounds per minute (~15.83 shots per second)
-    private float mp5ReloadTime = 2f;        // Time it takes to reload the MP5
-    private bool isMP5Reloading = false;     // Is the MP5 reloading?
-    private float nextTimeToFire = 0f;       // Time until the next shot can be fired (for full-auto MP5)
+    public bool hasMP5 = false;
+    public int mp5Ammo = 120;
+    public int currentMP5Ammo = 30;
+    public int mp5MagazineSize = 30;
+    private float mp5FireRate = 950f / 60f;
+    private float mp5ReloadTime = 2f;
+    private bool isMP5Reloading = false;
+    private float nextTimeToFireMP5 = 0f;
+    public float mp5MOA = 1f;
+    private float mp5AutoTime = 0f;
+
+    [Header("M4 Settings")]
+    public bool hasM4 = false;
+    public int m4Ammo = 150;
+    private int currentM4Ammo = 30;
+    public int m4MagazineSize = 30;
+    private float m4FireRate = 900f / 60f;
+    private float m4ReloadTime = 2.5f;
+    private bool isM4Reloading = false;
+    private float nextTimeToFireM4 = 0f;
+    public float m4MOA = 1f;
+    private float m4AutoTime = 0f;
+
+    [Header("Shotgun Settings")]
+    public bool hasShotgun = false;
+    public int shotgunAmmo = 24;
+    private int currentShotgunAmmo = 6;
+    public int shotgunMagazineSize = 6;
+    public float shotgunReloadTime = 3f;
+    public float shotgunMOA = 4f;
+    private bool isShotgunReloading = false;
+    private float nextShotgunTime = 0f;
+    public GameObject shotgunShellPrefab;
+
+    public GameObject mp5ShellPrefab;
+    public GameObject m4ShellPrefab;
+
+    private enum WeaponType { Pistol, MP5, M4, Shotgun }
+    private WeaponType currentWeapon;
 
     private PlayerInput playerInput;
     private InputAction aimAction;
     private InputAction shootAction;
+    private InputAction switchWeaponAction;
+
+    [Header("Weapon HUD Settings")]
+    public Image weaponUIImage;
+    public Sprite pistolSprite;
+    public Sprite mp5Sprite;
+    public Sprite m4Sprite;
+    public Sprite shotgunSprite;
+    public float rotationAngle = 10f;
+    public float rotationSpeed = 2f;
 
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        aimAction = playerInput.actions["Aim"];
+        shootAction = playerInput.actions["Shoot"];
+        switchWeaponAction = playerInput.actions["SwitchWeapon"];
+        switchWeaponAction.performed += SwitchWeapon;
+        currentWeapon = WeaponType.Pistol;
 
-        // Use the action map and action names as per your input asset setup
-        aimAction = playerInput.actions["Aim"];   // Left Trigger
-        shootAction = playerInput.actions["Shoot"]; // Right Trigger
+        UpdateWeaponHUD();
     }
 
     void Update()
@@ -53,6 +100,22 @@ public class PlayerShooter : MonoBehaviour
         HandleZoom();
         UpdateFirePoint();
         HandleShooting();
+    }
+
+    Vector3 CalculateMOADirection(Transform firePoint, float moa)
+    {
+        // Convert MOA to an angle in degrees for spread (1 MOA = ~0.000290888 radians per unit)
+        float spreadAngle = moa * 0.000290888f;
+
+        // Calculate random angular deviation for both X (up/down) and Y (left/right) directions
+        float randomX = Random.Range(-spreadAngle, spreadAngle);
+        float randomY = Random.Range(-spreadAngle, spreadAngle);
+
+        // Create a deviation rotation based on the random angles
+        Quaternion deviationRotation = Quaternion.Euler(randomX, randomY, 0);
+
+        // Apply the deviation to the fire point's forward direction
+        return deviationRotation * firePoint.forward;
     }
 
     void HandleZoom()
@@ -69,32 +132,37 @@ public class PlayerShooter : MonoBehaviour
 
     void UpdateFirePoint()
     {
-        // Ensure the firePoint is at the camera's position and pointing in the same direction as the camera
         firePoint.position = playerCamera.transform.position + playerCamera.transform.forward * 1.0f;
         firePoint.rotation = playerCamera.transform.rotation;
     }
 
     void HandleShooting()
     {
-        if (hasPistol && !isPistolReloading)
+        switch (currentWeapon)
         {
-            HandlePistolShooting();
-        }
-        else if (hasMP5 && !isMP5Reloading)
-        {
-            HandleMP5Shooting();
+            case WeaponType.Pistol:
+                if (hasPistol && !isPistolReloading) HandlePistolShooting();
+                break;
+            case WeaponType.MP5:
+                if (hasMP5 && !isMP5Reloading) HandleMP5Shooting();
+                break;
+            case WeaponType.M4:
+                if (hasM4 && !isM4Reloading) HandleM4Shooting();
+                break;
+            case WeaponType.Shotgun:
+                if (hasShotgun && !isShotgunReloading && Time.time >= nextShotgunTime) HandleShotgunShooting();
+                break;
         }
     }
 
     void HandlePistolShooting()
     {
-        // Semi-auto pistol: Fire only when the trigger is pulled
         if (shootAction.triggered && currentPistolAmmo > 0)
         {
-            ShootPistol();
+            ShootProjectile(pistolProjectilePrefab, pistolMOA);
+            currentPistolAmmo--;
         }
 
-        // Reload when magazine is empty
         if (currentPistolAmmo == 0 && !isPistolReloading)
         {
             StartCoroutine(ReloadPistol());
@@ -103,81 +171,204 @@ public class PlayerShooter : MonoBehaviour
 
     void HandleMP5Shooting()
     {
-        // Full-auto MP5: Continuously fire while holding the trigger
-        if (shootAction.ReadValue<float>() > 0 && Time.time >= nextTimeToFire && currentMP5Ammo > 0)
+        if (shootAction.ReadValue<float>() > 0 && Time.time >= nextTimeToFireMP5 && currentMP5Ammo > 0)
         {
-            nextTimeToFire = Time.time + 1f / mp5FireRate;
-            ShootMP5();
+            nextTimeToFireMP5 = Time.time + 1f / mp5FireRate;
+            mp5AutoTime += 0.1f;
+            ShootProjectile(mp5ProjectilePrefab, mp5MOA + mp5AutoTime * 1.5f);
+            DropShell(mp5ShellPrefab);
+            currentMP5Ammo--;
+        }
+        else if (shootAction.ReadValue<float>() == 0)
+        {
+            mp5AutoTime = 0f;
         }
 
-        // Reload when magazine is empty
         if (currentMP5Ammo == 0 && !isMP5Reloading)
         {
             StartCoroutine(ReloadMP5());
         }
     }
 
-    // Shooting logic for the pistol
-    void ShootPistol()
+    void HandleM4Shooting()
     {
-        // Instantiate the projectile and set its velocity
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.velocity = firePoint.forward * projectileSpeed;
-        rb.useGravity = true;
+        if (shootAction.ReadValue<float>() > 0 && Time.time >= nextTimeToFireM4 && currentM4Ammo > 0)
+        {
+            nextTimeToFireM4 = Time.time + 1f / m4FireRate;
+            m4AutoTime += 0.1f;
+            ShootProjectile(m4ProjectilePrefab, m4MOA + m4AutoTime);
+            DropShell(m4ShellPrefab);
+            currentM4Ammo--;
+        }
+        else if (shootAction.ReadValue<float>() == 0)
+        {
+            m4AutoTime = 0f;
+        }
 
-        // Decrease current magazine ammo
-        currentPistolAmmo--;
-
-        Debug.Log("Pistol shot fired! Ammo left: " + currentPistolAmmo);
+        if (currentM4Ammo == 0 && !isM4Reloading)
+        {
+            StartCoroutine(ReloadM4());
+        }
     }
 
-    // Shooting logic for the MP5
-    void ShootMP5()
+    void HandleShotgunShooting()
     {
-        // Instantiate the projectile and set its velocity
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        rb.velocity = firePoint.forward * projectileSpeed;
-        rb.useGravity = true;
+        if (shootAction.triggered && currentShotgunAmmo > 0)
+        {
+            ShootShotgun();
+            DropShell(shotgunShellPrefab);
+            nextShotgunTime = Time.time + 0.5f;
+            currentShotgunAmmo--;
+        }
 
-        // Decrease current magazine ammo
-        currentMP5Ammo--;
-
-        Debug.Log("MP5 shot fired! Ammo left: " + currentMP5Ammo);
+        if (currentShotgunAmmo == 0 && !isShotgunReloading)
+        {
+            StartCoroutine(ReloadShotgun());
+        }
     }
 
-    // Reloading logic for the pistol
+    void ShootProjectile(GameObject projectilePrefab, float moa)
+    {
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 direction = GetSpreadDirection(moa);
+            rb.velocity = direction * projectileSpeed;
+        }
+    }
+
+    void ShootShotgun()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            GameObject pellet = Instantiate(shotgunPelletPrefab, firePoint.position, firePoint.rotation);
+            Rigidbody rb = pellet.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = GetSpreadDirection(shotgunMOA) * projectileSpeed;
+            }
+        }
+    }
+
+    Vector3 GetSpreadDirection(float moa)
+    {
+        float spreadAngle = moa * 0.000290888f;
+        Vector3 direction = firePoint.forward;
+        direction = Quaternion.Euler(Random.Range(-spreadAngle, spreadAngle), Random.Range(-spreadAngle, spreadAngle), 0) * direction;
+        return direction;
+    }
+
+    void DropShell(GameObject shellPrefab)
+    {
+        if (shellPrefab != null)
+        {
+            Instantiate(shellPrefab, firePoint.position, Quaternion.identity);
+        }
+    }
+
+    void SwitchWeapon(InputAction.CallbackContext context)
+    {
+        do
+        {
+            currentWeapon = (WeaponType)(((int)currentWeapon + 1) % System.Enum.GetValues(typeof(WeaponType)).Length);
+        } while (!HasWeaponAndAmmo());
+
+        UpdateWeaponHUD();
+    }
+
+    void UpdateWeaponHUD()
+    {
+        switch (currentWeapon)
+        {
+            case WeaponType.Pistol:
+                weaponUIImage.sprite = pistolSprite;
+                break;
+            case WeaponType.MP5:
+                weaponUIImage.sprite = mp5Sprite;
+                break;
+            case WeaponType.M4:
+                weaponUIImage.sprite = m4Sprite;
+                break;
+            case WeaponType.Shotgun:
+                weaponUIImage.sprite = shotgunSprite;
+                break;
+        }
+    }
+
+    bool HasWeaponAndAmmo()
+    {
+        switch (currentWeapon)
+        {
+            case WeaponType.Pistol: return hasPistol && currentPistolAmmo > 0;
+            case WeaponType.MP5: return hasMP5 && currentMP5Ammo > 0;
+            case WeaponType.M4: return hasM4 && currentM4Ammo > 0;
+            case WeaponType.Shotgun: return hasShotgun && currentShotgunAmmo > 0;
+            default: return false;
+        }
+    }
+
+    IEnumerator RockHUDImage()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 1f)  // duration for rocking effect
+        {
+            float angle = Mathf.Sin(Time.time * rotationSpeed) * rotationAngle;
+            weaponUIImage.rectTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        weaponUIImage.rectTransform.localRotation = Quaternion.identity;
+    }
+
     IEnumerator ReloadPistol()
     {
         isPistolReloading = true;
-        Debug.Log("Reloading pistol...");
-
+        StartCoroutine(RockHUDImage());
         yield return new WaitForSeconds(pistolReloadTime);
 
-        // Refill the pistol magazine
         int ammoToReload = Mathf.Min(pistolMagazineSize, pistolAmmo);
         currentPistolAmmo = ammoToReload;
         pistolAmmo -= ammoToReload;
-
         isPistolReloading = false;
-        Debug.Log("Pistol reloaded! Ammo in magazine: " + currentPistolAmmo + " | Remaining ammo: " + pistolAmmo);
     }
 
-    // Reloading logic for the MP5
     IEnumerator ReloadMP5()
     {
         isMP5Reloading = true;
-        Debug.Log("Reloading MP5...");
-
+        StartCoroutine(RockHUDImage());
         yield return new WaitForSeconds(mp5ReloadTime);
 
-        // Refill the MP5 magazine
         int ammoToReload = Mathf.Min(mp5MagazineSize, mp5Ammo);
         currentMP5Ammo = ammoToReload;
         mp5Ammo -= ammoToReload;
-
         isMP5Reloading = false;
-        Debug.Log("MP5 reloaded! Ammo in magazine: " + currentMP5Ammo + " | Remaining ammo: " + mp5Ammo);
+    }
+
+    IEnumerator ReloadM4()
+    {
+        isM4Reloading = true;
+        StartCoroutine(RockHUDImage());
+        yield return new WaitForSeconds(m4ReloadTime);
+
+        int ammoToReload = Mathf.Min(m4MagazineSize, m4Ammo);
+        currentM4Ammo = ammoToReload;
+        m4Ammo -= currentM4Ammo;
+        isM4Reloading = false;
+    }
+
+    IEnumerator ReloadShotgun()
+    {
+        isShotgunReloading = true;
+        StartCoroutine(RockHUDImage());
+        yield return new WaitForSeconds(shotgunReloadTime);
+
+        int ammoToReload = Mathf.Min(shotgunMagazineSize, shotgunAmmo);
+        currentShotgunAmmo = ammoToReload;
+        shotgunAmmo -= ammoToReload;
+        isShotgunReloading = false;
     }
 }
