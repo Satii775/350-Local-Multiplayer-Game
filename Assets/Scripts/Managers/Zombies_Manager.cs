@@ -10,6 +10,13 @@ public class Zombies_Manager : MonoBehaviour
     void Start()
     {
         Zombies = GameObject.FindGameObjectsWithTag("Enemy");
+        Debug.Log("Zombies: " + Zombies.Length);
+
+        // Debug for seeing what objects are found
+        // foreach (GameObject zombie in Zombies)
+        // {
+        //     Debug.Log("Zombie found: " + zombie.name);
+        // }
     }
 
     // Update is called once per frame
