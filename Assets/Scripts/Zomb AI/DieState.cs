@@ -1,9 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class DieState : State
 {
-    private bool hasDied = false;  // Track if death has already been processed
     private float timeBeforeDestruction = 1.2f; // Time to wait before destroying the zombie
 
     public DieState(ZombieAIController controller, NavMeshAgent navMeshAgent, Animator animator)
@@ -13,18 +13,18 @@ public class DieState : State
     {
         Debug.Log("Entering Die State");
 
-        // Mark the zombie as dead in the AI controller
-        _controller.SetIsDead(true);
-
         // Stop the NavMeshAgent and all movement
         _navMeshAgent.isStopped = true;
         _navMeshAgent.updatePosition = false;
         _navMeshAgent.updateRotation = false;
 
         // Ensure the animation triggers only if it hasn't been triggered already
-        if (!hasDied)
+        if (!_controller.hasDied)
         {
-            hasDied = true;
+            _controller.hasDied = true;
+
+            // Set the zombie as dead
+            _controller.SetIsDead(true);
 
             // Play one of the fall animations (forward or backward randomly)
             if (Random.Range(0, 2) == 0)
@@ -37,8 +37,16 @@ public class DieState : State
             }
 
             // Schedule destruction of the zombie object after 0.5 seconds
-            GameObject.Destroy(_controller.gameObject, timeBeforeDestruction);
+            _controller.StartCoroutine(DelayedTeleport(timeBeforeDestruction));
+            
         }
+    }
+
+    IEnumerator DelayedTeleport(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        FinalizeDeath();
+        
     }
 
     public override void Execute()
@@ -48,8 +56,8 @@ public class DieState : State
 
     private void FinalizeDeath()
     {
-        // Additional cleanup logic if needed before destruction.
-        Debug.Log("Finalizing death: Zombie will be destroyed after a short delay.");
+        _controller.Zombie.transform.position = new Vector3(29.49126f, -17.84f, -526.9813f);
+        _controller.animator.gameObject.GetComponent<Animator>().enabled = false;
     }
 
     public override void Exit()

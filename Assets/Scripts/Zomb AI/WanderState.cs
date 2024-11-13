@@ -18,6 +18,16 @@ public class WanderState : State
     {
         Debug.Log("Entering Wander State");
         _controller.SetIsWalking(true);
+
+        if (_controller.hasDied == true)
+        {
+            _controller.hasDied = false;
+
+            _controller.animator.gameObject.GetComponent<Animator>().enabled = true;
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.updatePosition = true;
+            _navMeshAgent.updateRotation = true;
+        }
     }
 
     public override void Execute()

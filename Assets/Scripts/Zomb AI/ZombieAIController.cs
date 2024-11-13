@@ -3,9 +3,12 @@ using UnityEngine.AI;
 
 public class ZombieAIController : MonoBehaviour
 {
+    [Header("Zombie State Machine")]
     private State _currentState;           // The current state the zombie is in
     public NavMeshAgent navMeshAgent;      // The NavMeshAgent that handles zombie movement
     public Animator animator;              // Animator to handle zombie animations
+
+    [Header("Zombie Stats")]
     public float health = 100f;            // Zombie's health
 
     // Adjustable parameters for behaviors
@@ -20,12 +23,25 @@ public class ZombieAIController : MonoBehaviour
     public float playerDetectionRange = 10f; // Detection range for player
     public float bodyDetectionRange = 10f;  // Detection range for bodies
 
+    [Header("Game Objects")]
     private GameObject player;             // Cached reference to the player
+    public GameObject Zombie;             // Cached reference to the Zombie
+
+    [Header("MISC")]
+    public bool hasDied = false;
 
     void Start()
     {
         // Cache player reference to avoid repeated FindWithTag calls
         player = GameObject.FindWithTag("Player");
+
+        Zombie = this.gameObject;
+
+        if (Zombie == null)
+        {
+            Debug.LogError("Unable to grab Zombie GameObject");
+            return;
+        }
 
         if (player == null)
         {
@@ -185,6 +201,7 @@ public class ZombieAIController : MonoBehaviour
     public void SetIsDead(bool value)
     {
         animator.SetBool("isDead", value);
+        
     }
 
     // Method for the zombie to take damage
