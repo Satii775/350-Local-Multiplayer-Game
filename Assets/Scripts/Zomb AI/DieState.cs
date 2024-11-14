@@ -38,6 +38,8 @@ public class DieState : State
 
             // Schedule destruction of the zombie object after 0.5 seconds
             _controller.StartCoroutine(DelayedTeleport(timeBeforeDestruction));
+
+            _controller.ChangeState(new IdleState(_controller, _navMeshAgent, _animator));
             
         }
     }
@@ -46,7 +48,6 @@ public class DieState : State
     {
         yield return new WaitForSeconds(delay);
         FinalizeDeath();
-        
     }
 
     public override void Execute()

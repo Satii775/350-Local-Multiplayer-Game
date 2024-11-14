@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Zombies_Manager : MonoBehaviour
 {
@@ -40,18 +41,35 @@ public class Zombies_Manager : MonoBehaviour
 
         for (int i = 0; i < zombiesToSpawn; i++)
         {
-            //randomly Select Zombie from the list
+            // Randomly select a zombie from the list
             int randomZombie = Random.Range(0, Zombies.Length);
             GameObject zombie = Zombies[randomZombie];
 
             // Randomly determine a spawn position within the spawn area
-            Vector3 spawnPosition = spawnAreaCenter + new Vector3(
+            Vector3 randomPosition = spawnAreaCenter + new Vector3(
                 Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
                 Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2),
                 Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
             );
 
-            zombie.transform.position = spawnPosition;
+            // Find a valid position on the NavMesh near the random position
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomPosition, out hit, 1.0f, NavMesh.AllAreas))
+            {
+                zombie.transform.position = hit.position;
+                NavMeshAgent agent = zombie.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    agent.enabled = true; // Ensure the NavMeshAgent is enabled
+                    yield return null; // Wait for one frame to ensure the agent is initialized
+                }
+                zombie.GetComponent<ZombieAIController>().SpawnZombies();
+            }
+            else
+            {
+                Debug.LogWarning("Failed to find a valid NavMesh position for zombie spawn.");
+            }
+
             yield return new WaitForSeconds(1);
         }
 

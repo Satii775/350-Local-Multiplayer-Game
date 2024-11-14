@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,7 +30,7 @@ public class ZombieAIController : MonoBehaviour
 
     [Header("MISC")]
     public bool hasDied = false;
-    public bool isIdle = false;
+    public bool isIdle = true;
 
     void Start()
     {
@@ -92,6 +93,13 @@ public class ZombieAIController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SpawnZombies()
+    {
+        health = 100f;
+        ChangeState(new WanderState(this, navMeshAgent, animator));
+        isIdle = false;
     }
 
     // Method to change the current state

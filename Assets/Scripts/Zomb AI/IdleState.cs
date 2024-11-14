@@ -12,11 +12,6 @@ public class IdleState : State
     public override void Enter()
     {
         Debug.Log("Entering Idle State");
-
-        // Stop the NavMeshAgent and all movement
-        _navMeshAgent.isStopped = true;
-        _navMeshAgent.updatePosition = false;
-        _navMeshAgent.updateRotation = false;
     }
 
 
