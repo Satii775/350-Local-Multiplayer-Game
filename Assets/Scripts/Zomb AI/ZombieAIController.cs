@@ -29,6 +29,7 @@ public class ZombieAIController : MonoBehaviour
 
     [Header("MISC")]
     public bool hasDied = false;
+    public bool isIdle = false;
 
     void Start()
     {
@@ -53,38 +54,42 @@ public class ZombieAIController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         // Start with the Wander state
-        ChangeState(new WanderState(this, navMeshAgent, animator));
+        ChangeState(new IdleState(this, navMeshAgent, animator));
     }
 
     void Update()
     {
-        if (_currentState != null)
+        if (isIdle == false)
         {
-            _currentState.Execute();  // Run the current state's logic
-        }
 
-        // Check health and transition to DieState if needed
-        if (health <= 0)
-        {
-            ChangeState(new DieState(this, navMeshAgent, animator));
-        }
-
-        // ** PRIORITIZE PLAYER DETECTION FIRST **
-        if (IsPlayerInSight())  // Check if the player is in sight
-        {
-            // If player is in sight, chase them and stop checking for bodies
-            if (!(_currentState is FollowPlayerState))
+            if (_currentState != null)
             {
-                ChangeState(new FollowPlayerState(this, navMeshAgent, animator, chaseSpeed));
-                return; // Stop further checks once player is detected
+                _currentState.Execute();  // Run the current state's logic
             }
-        }
-        // ** Check for Bodies Only If No Player is Detected **
-        else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
-        {
-            if (!(_currentState is EatBodyState))
+
+            // Check health and transition to DieState if needed
+            if (health <= 0)
             {
-                ChangeState(new EatBodyState(this, navMeshAgent, animator));  // Transition to eating the body
+                ChangeState(new DieState(this, navMeshAgent, animator));
+            }
+
+            // ** PRIORITIZE PLAYER DETECTION FIRST **
+            if (IsPlayerInSight())  // Check if the player is in sight
+            {
+                // If player is in sight, chase them and stop checking for bodies
+                if (!(_currentState is FollowPlayerState))
+                {
+                    ChangeState(new FollowPlayerState(this, navMeshAgent, animator, chaseSpeed));
+                    return; // Stop further checks once player is detected
+                }
+            }
+            // ** Check for Bodies Only If No Player is Detected **
+            else if (IsBodyNearby() && !(_currentState is FollowPlayerState))  // If no player detected, check for bodies
+            {
+                if (!(_currentState is EatBodyState))
+                {
+                    ChangeState(new EatBodyState(this, navMeshAgent, animator));  // Transition to eating the body
+                }
             }
         }
     }
@@ -201,7 +206,7 @@ public class ZombieAIController : MonoBehaviour
     public void SetIsDead(bool value)
     {
         animator.SetBool("isDead", value);
-        
+
     }
 
     // Method for the zombie to take damage
