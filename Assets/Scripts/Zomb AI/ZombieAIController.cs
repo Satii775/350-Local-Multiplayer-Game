@@ -195,16 +195,21 @@ public class ZombieAIController : MonoBehaviour
         animator.SetBool("isDead", false);
         animator.SetBool("isAttacking", false);
         animator.SetBool("isIdle", false);
-        animator.SetBool("isDead", false);
     }
 
     public void SetIsAttacking(bool value)
     {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isDead", false);
         animator.SetBool("isAttacking", value);
+        animator.SetBool("isIdle", false);
     }
 
     public void SetIsIdle(bool value)
     {
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isDead", false);
+        animator.SetBool("isAttacking", false);
         animator.SetBool("isIdle", value);
     }
 
@@ -220,7 +225,10 @@ public class ZombieAIController : MonoBehaviour
 
     public void SetIsDead(bool value)
     {
+        animator.SetBool("isWalking", false);
         animator.SetBool("isDead", value);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isIdle", false);
     }
 
     // Method for the zombie to take damage

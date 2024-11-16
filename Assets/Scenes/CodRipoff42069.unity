@@ -552,6 +552,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (45)
@@ -792,6 +796,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (28)
@@ -2021,6 +2029,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (49)
@@ -2407,6 +2419,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (37)
@@ -2654,6 +2670,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (46)
@@ -2723,6 +2743,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (47)
@@ -2875,6 +2899,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (4)
@@ -3076,6 +3104,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (38)
@@ -3197,6 +3229,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (33)
@@ -3370,6 +3406,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (43)
@@ -3439,6 +3479,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (18)
@@ -3606,6 +3650,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (44)
@@ -3675,6 +3723,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (36)
@@ -4065,7 +4117,7 @@ Transform:
   m_GameObject: {fileID: 495804403}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.4, y: 11.87, z: -555.91}
+  m_LocalPosition: {x: 37.4, y: 2.04, z: -543.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4327,6 +4379,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (20)
@@ -4850,6 +4906,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (2)
@@ -5137,6 +5197,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (3)
@@ -5904,6 +5968,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (19)
@@ -6195,6 +6263,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (11)
@@ -6847,6 +6919,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (1)
@@ -6994,6 +7070,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (8)
@@ -7167,6 +7247,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (42)
@@ -7797,6 +7881,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (12)
@@ -8194,6 +8282,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (40)
@@ -8585,6 +8677,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (7)
@@ -8899,6 +8995,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (22)
@@ -9077,6 +9177,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (35)
@@ -9172,6 +9276,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (30)
@@ -9825,6 +9933,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (25)
@@ -9972,6 +10084,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (10)
@@ -10067,6 +10183,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (39)
@@ -10323,6 +10443,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (16)
@@ -10522,6 +10646,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (23)
@@ -10783,6 +10911,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (9)
@@ -10878,6 +11010,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (32)
@@ -11540,6 +11676,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (48)
@@ -11765,6 +11905,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (31)
@@ -12127,6 +12271,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (34)
@@ -12326,6 +12474,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (6)
@@ -12499,6 +12651,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (13)
@@ -12630,6 +12786,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (29)
@@ -12974,6 +13134,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (17)
@@ -13095,6 +13259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (41)
@@ -13486,6 +13654,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (15)
@@ -13997,6 +14169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (14)
@@ -14066,6 +14242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (21)
@@ -14245,6 +14425,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (5)
@@ -14871,6 +15055,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (27)
@@ -14997,6 +15185,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (24)
@@ -20172,6 +20364,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1 (26)
@@ -20546,6 +20742,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563910876}
     m_Modifications:
+    - target: {fileID: 1997168960898208326, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
+      propertyPath: chaseSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4584164060410830223, guid: ded65d459af438a4d9ba980069e8b31e, type: 3}
       propertyPath: m_Name
       value: Zombie1
