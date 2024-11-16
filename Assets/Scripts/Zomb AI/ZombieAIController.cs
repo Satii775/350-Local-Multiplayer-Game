@@ -192,6 +192,10 @@ public class ZombieAIController : MonoBehaviour
     public void SetIsWalking(bool value)
     {
         animator.SetBool("isWalking", value);
+        animator.SetBool("isDead", false);
+        animator.SetBool("isAttacking", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isDead", false);
     }
 
     public void SetIsAttacking(bool value)
@@ -204,12 +208,12 @@ public class ZombieAIController : MonoBehaviour
         animator.SetBool("isIdle", value);
     }
 
-    public void TriggerFallForward()
+    public void TriggerFallForward(bool value)
     {
         animator.SetTrigger("isFallingForward");
     }
 
-    public void TriggerFallBack()
+    public void TriggerFallBack(bool value)
     {
         animator.SetTrigger("isFallingBack");
     }
@@ -217,7 +221,6 @@ public class ZombieAIController : MonoBehaviour
     public void SetIsDead(bool value)
     {
         animator.SetBool("isDead", value);
-
     }
 
     // Method for the zombie to take damage

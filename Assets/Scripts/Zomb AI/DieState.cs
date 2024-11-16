@@ -31,11 +31,11 @@ public class DieState : State
             // Play one of the fall animations (forward or backward randomly)
             if (Random.Range(0, 2) == 0)
             {
-                _controller.TriggerFallForward();
+                _controller.TriggerFallForward(true);
             }
             else
             {
-                _controller.TriggerFallBack();
+                _controller.TriggerFallBack(true);
             }
 
             // Schedule destruction of the zombie object after 0.5 seconds
