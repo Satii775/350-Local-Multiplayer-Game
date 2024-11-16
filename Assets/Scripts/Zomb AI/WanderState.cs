@@ -17,7 +17,6 @@ public class WanderState : State
     public override void Enter()
     {
         Debug.Log("Entering Wander State");
-        _controller.SetIsWalking(true);
 
         if (_controller.hasDied == true)
         {
@@ -28,6 +27,7 @@ public class WanderState : State
             _navMeshAgent.updatePosition = true;
             _navMeshAgent.updateRotation = true;
         }
+        _controller.SetIsWalking(true);
     }
 
     public override void Execute()

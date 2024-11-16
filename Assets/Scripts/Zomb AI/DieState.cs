@@ -23,6 +23,8 @@ public class DieState : State
         {
             _controller.hasDied = true;
 
+            _controller.Zomb_Spawner.GetComponent<Zombies_Manager>().KillZombie();
+
             // Set the zombie as dead
             _controller.SetIsDead(true);
 

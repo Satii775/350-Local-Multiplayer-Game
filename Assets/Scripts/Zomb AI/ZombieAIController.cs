@@ -27,6 +27,7 @@ public class ZombieAIController : MonoBehaviour
     [Header("Game Objects")]
     private GameObject player;             // Cached reference to the player
     public GameObject Zombie;             // Cached reference to the Zombie
+    public GameObject Zomb_Spawner;
 
     [Header("MISC")]
     public bool hasDied = false;
@@ -36,6 +37,8 @@ public class ZombieAIController : MonoBehaviour
     {
         // Cache player reference to avoid repeated FindWithTag calls
         player = GameObject.FindWithTag("Player");
+
+        Zomb_Spawner = GameObject.FindWithTag("Zomb Manager");
 
         Zombie = this.gameObject;
 

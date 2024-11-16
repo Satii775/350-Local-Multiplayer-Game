@@ -11,13 +11,16 @@ public class Zombies_Manager : MonoBehaviour
 
     private int round = 1;
     private int zombiesToSpawn = 5;
-    private int zombiesAlive = 0;
+    private int zombiesAlive = 5;
+    private bool roundStart = true;
 
     // Start is called before the first frame update
     void Start()
     {
         Zombies = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log("Zombies: " + Zombies.Length);
+
+        StartCoroutine(SpawnZombies(round));
 
         // Debug for seeing what objects are found
         // foreach (GameObject zombie in Zombies)
@@ -29,21 +32,27 @@ public class Zombies_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (zombiesAlive <= 0)
+        if (zombiesAlive <= 0 && roundStart == true)
         {
-            StartCoroutine(SpawnZombies(round));
+            roundStart = false;
+            StartCoroutine(WaitAndSpawnZombies());
         }
+    }
+
+    IEnumerator WaitAndSpawnZombies()
+    {
+        yield return new WaitForSeconds(10); // Wait for 10 seconds
+        round++;
+        zombiesToSpawn += 5; // Increase the number of zombies to spawn by 5 each round
+        StartCoroutine(SpawnZombies(round));
     }
 
     IEnumerator SpawnZombies(int round)
     {
-        zombiesAlive = zombiesToSpawn;
 
         for (int i = 0; i < zombiesToSpawn; i++)
         {
-            // Randomly select a zombie from the list
-            int randomZombie = Random.Range(0, Zombies.Length);
-            GameObject zombie = Zombies[randomZombie];
+            GameObject zombie = Zombies[i];
 
             // Randomly determine a spawn position within the spawn area
             Vector3 randomPosition = spawnAreaCenter + new Vector3(
@@ -72,8 +81,8 @@ public class Zombies_Manager : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
-
-        round++;
+        zombiesAlive = zombiesToSpawn;
+        roundStart = true;
     }
 
     public void KillZombie()
