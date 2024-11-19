@@ -7364,8 +7364,8 @@ Transform:
   m_GameObject: {fileID: 931921581}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.5045, y: 8.617, z: 23.1306}
-  m_LocalScale: {x: 7.371715, y: 1.376, z: 1.6584129}
+  m_LocalPosition: {x: 22.5045, y: 8.617, z: 21.6094}
+  m_LocalScale: {x: 7.371715, y: 1.376, z: 1.9627318}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1043796875}
@@ -8433,7 +8433,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -8444,7 +8444,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.0625
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: e47ee544f1fea954db937d6198d8d52a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f188f59a2205e3c4c80c172a3a04985a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1043796875
 Transform:
@@ -10752,6 +10752,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 949085074486229558, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1260134327618889585, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m4ShellPrefab
       value: 
@@ -10787,6 +10791,14 @@ PrefabInstance:
     - target: {fileID: 4784452513059903463, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_Name
       value: CoopPlayer2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784452513059903463, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615145740032764709, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7555144566473357676, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_Actions
@@ -21528,6 +21540,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 949085074486229558, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1260134327618889585, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m4ShellPrefab
       value: 
@@ -21563,6 +21579,14 @@ PrefabInstance:
     - target: {fileID: 4784452513059903463, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_Name
       value: CoopPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784452513059903463, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615145740032764709, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.x
