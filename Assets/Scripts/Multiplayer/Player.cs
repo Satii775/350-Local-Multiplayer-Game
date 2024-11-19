@@ -11,9 +11,21 @@ public class Player : MonoBehaviour
     private const float damageInterval = 0.5f; // Damage interval in seconds
     private const float enemyCollisionDamage = 50f; // Damage per interval when in contact with enemy
 
+    private GameObject lostMenu;
+
     private void Awake()
     {
         ResetHealth(); // Initialize health to maxHealth
+
+        lostMenu = GameObject.FindWithTag("Lost menu");
+        if (lostMenu != null)
+        {
+            lostMenu.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("Lost Menu not found in the scene.");
+        }
     }
 
     private void Update()
@@ -47,8 +59,11 @@ public class Player : MonoBehaviour
     private void Die()
     {
         currentHealth = 0;
-        Debug.Log("Player has died. Resetting scene...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Debug.Log("Player has died. Resetting scene...");
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        lostMenu.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     // Optional: Trigger damage feedback (e.g., visual or audio effect)

@@ -4,6 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CoopUpdatedScene.unity
+    guid: 15ce557ad1000d7458d22ea05df34ee3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: cb03238ee57060d4f962e9b7619471ee, type: 2}
