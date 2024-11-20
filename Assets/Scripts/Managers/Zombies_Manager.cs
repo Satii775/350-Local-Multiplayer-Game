@@ -13,10 +13,13 @@ public class Zombies_Manager : MonoBehaviour
     private int zombiesToSpawn = 5;
     private int zombiesAlive = 5;
     private bool roundStart = true;
+    private GameObject WinScreen;
 
     // Start is called before the first frame update
     void Start()
     {
+        WinScreen = GameObject.FindWithTag("Win menu");
+        WinScreen.SetActive(false);
         Zombies = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log("Zombies: " + Zombies.Length);
 
@@ -32,6 +35,11 @@ public class Zombies_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (zombiesToSpawn == 50 && zombiesAlive <= 0)
+        {
+            WinScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
         if (zombiesAlive <= 0 && roundStart == true)
         {
             roundStart = false;

@@ -15,6 +15,7 @@ TagManager:
   - Boss
   - Zomb Manager
   - Lost menu
+  - Win menu
   layers:
   - Default
   - TransparentFX
