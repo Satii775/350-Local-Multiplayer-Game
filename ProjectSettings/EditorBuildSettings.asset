@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 107a2b24168e39047ae3b00e38ed78bb
+  - enabled: 1
     path: Assets/Scenes/CoopUpdatedScene.unity
     guid: 15ce557ad1000d7458d22ea05df34ee3
+  - enabled: 1
+    path: Assets/Scenes/HowToPlay.unity
+    guid: 55af7915ddc8e0440b81c70626704291
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: cb03238ee57060d4f962e9b7619471ee, type: 2}

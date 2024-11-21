@@ -19,4 +19,8 @@ public class Gameplay_Menus : MonoBehaviour
         // Quit the application
         Application.Quit();
     }
+
+    public void LoadNewScene(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+    }
 }

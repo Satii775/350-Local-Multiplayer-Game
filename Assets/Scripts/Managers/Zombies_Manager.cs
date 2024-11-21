@@ -9,9 +9,9 @@ public class Zombies_Manager : MonoBehaviour
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
 
-    private int round = 1;
-    private int zombiesToSpawn = 5;
-    private int zombiesAlive = 5;
+    public int round = 9;
+    public int zombiesToSpawn = 45;
+    private int zombiesAlive = 45;
     private bool roundStart = true;
     private GameObject WinScreen;
 
@@ -57,7 +57,7 @@ public class Zombies_Manager : MonoBehaviour
 
     IEnumerator SpawnZombies(int round)
     {
-
+        zombiesAlive = zombiesToSpawn;
         for (int i = 0; i < zombiesToSpawn; i++)
         {
             GameObject zombie = Zombies[i];
@@ -89,8 +89,10 @@ public class Zombies_Manager : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
-        zombiesAlive = zombiesToSpawn;
         roundStart = true;
+
+        Debug.Log("Round number" + round);
+        Debug.Log("Zombie number " + zombiesToSpawn);
     }
 
     public void KillZombie()
