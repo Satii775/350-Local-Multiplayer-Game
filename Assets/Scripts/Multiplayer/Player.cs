@@ -62,7 +62,14 @@ public class Player : MonoBehaviour
         // Debug.Log("Player has died. Resetting scene...");
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        lostMenu.SetActive(true);
+        if (lostMenu != null)
+        {
+            lostMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("Lost Menu not found in the scene.");
+        }
         Time.timeScale = 0f;
     }
 
