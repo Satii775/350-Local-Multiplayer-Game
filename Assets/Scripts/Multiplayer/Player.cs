@@ -15,11 +15,15 @@ public class Player : MonoBehaviour
 
     private GameObject player;
 
+    private GameObject Manager;
+
     private void Awake()
     {
         ResetHealth(); // Initialize health to maxHealth
 
         player = this.gameObject;
+
+        Manager = GameObject.FindWithTag("Manager");
 
         lostMenu = GameObject.FindWithTag("Lost menu");
         if (lostMenu != null)
@@ -63,18 +67,22 @@ public class Player : MonoBehaviour
     private void Die()
     {
         currentHealth = 0;
+
+        Manager.GetComponent<Player_Manager>().PlayerDied(player);
+
+        transform.position = new Vector3(37, 1.97f, -555.79f);
         // Debug.Log("Player has died. Resetting scene...");
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
-        if (lostMenu != null)
-        {
-            lostMenu.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("Lost Menu not found in the scene.");
-        }
-        Time.timeScale = 0f;
+        // if (lostMenu != null)
+        // {
+        //     lostMenu.SetActive(true);
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("Lost Menu not found in the scene.");
+        // }
+        // Time.timeScale = 0f;
     }
 
     // Optional: Trigger damage feedback (e.g., visual or audio effect)
@@ -103,6 +111,8 @@ public class Player : MonoBehaviour
     {
         currentHealth = 50;
         Debug.Log("Player health reset to max.");
+        
+        transform.position = new Vector3(36.48f, 1.97f, -547.53f);
     }
 
     private void OnCollisionEnter(Collision collision)

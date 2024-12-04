@@ -16,6 +16,7 @@ TagManager:
   - Zomb Manager
   - Lost menu
   - Win menu
+  - Manager
   layers:
   - Default
   - TransparentFX

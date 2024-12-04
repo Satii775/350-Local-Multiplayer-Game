@@ -15,9 +15,17 @@ public class Zombies_Manager : MonoBehaviour
     private bool roundStart = true;
     private GameObject WinScreen;
 
+    private GameObject manager;
+
     // Start is called before the first frame update
     void Start()
     {
+        manager = GameObject.FindWithTag("Manager");
+        if (manager == null)
+        {
+            Debug.LogWarning("Manager not found");
+        }
+
         WinScreen = GameObject.FindWithTag("Win menu");
         if (WinScreen == null)
         {
@@ -52,6 +60,7 @@ public class Zombies_Manager : MonoBehaviour
 
     IEnumerator WaitAndSpawnZombies()
     {
+        manager.GetComponent<Player_Manager>().PlayersRevived();
         yield return new WaitForSeconds(10); // Wait for 10 seconds
         round++;
         zombiesToSpawn += 5; // Increase the number of zombies to spawn by 5 each round
