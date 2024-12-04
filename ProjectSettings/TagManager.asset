@@ -17,6 +17,8 @@ TagManager:
   - Lost menu
   - Win menu
   - Manager
+  - P1 HP
+  - P2 HP
   layers:
   - Default
   - TransparentFX

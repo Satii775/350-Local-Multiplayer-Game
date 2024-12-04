@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Required for scene management
 
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     private GameObject player;
 
     private GameObject Manager;
+
+    [SerializeField] private TextMeshProUGUI HealhtText;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        HealhtText.text = "Health: " + currentHealth.ToString();
         // Decrease the timer while in Update
         if (enemyCollisionTimer < damageInterval)
         {

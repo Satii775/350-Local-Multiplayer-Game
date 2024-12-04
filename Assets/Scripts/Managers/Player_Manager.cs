@@ -9,7 +9,21 @@ public class Player_Manager : MonoBehaviour
 
     void Awake()
     {
-        lostMenu = GameObject.FindWithTag("Lost menu");
+        Debug.Log("PlayerManager Awake called");
+    }
+
+    void Start()
+    {
+        Debug.Log("PlayerManager Start called");
+        lostMenu = FindInactiveObjectByTag("Lost menu");
+        if (lostMenu == null)
+        {
+            Debug.LogWarning("Lost Menu not found in the scene.");
+        }
+        else
+        {
+            Debug.Log("Lost Menu found successfully.");
+        }
     }
 
     public void PlayerDied(GameObject player)
@@ -36,5 +50,18 @@ public class Player_Manager : MonoBehaviour
             lostMenu.SetActive(true);
             Time.timeScale = 0;
         }
+    }
+
+    private GameObject FindInactiveObjectByTag(string tag)
+    {
+        Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>();
+        foreach (Transform obj in objs)
+        {
+            if (obj.hideFlags == HideFlags.None && obj.CompareTag(tag))
+            {
+                return obj.gameObject;
+            }
+        }
+        return null;
     }
 }

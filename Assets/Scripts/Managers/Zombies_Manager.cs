@@ -26,10 +26,14 @@ public class Zombies_Manager : MonoBehaviour
             Debug.LogWarning("Manager not found");
         }
 
-        WinScreen = GameObject.FindWithTag("Win menu");
+        WinScreen = FindInactiveObjectByTag("Win menu");
         if (WinScreen == null)
         {
             Debug.LogWarning("Win menu not found");
+        }
+        else
+        {
+            Debug.Log("Win menu found");
         }
         Zombies = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log("Zombies: " + Zombies.Length);
@@ -41,6 +45,19 @@ public class Zombies_Manager : MonoBehaviour
         // {
         //     Debug.Log("Zombie found: " + zombie.name);
         // }
+    }
+
+    private GameObject FindInactiveObjectByTag(string tag)
+    {
+        Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>();
+        foreach (Transform obj in objs)
+        {
+            if (obj.hideFlags == HideFlags.None && obj.CompareTag(tag))
+            {
+                return obj.gameObject;
+            }
+        }
+        return null;
     }
 
     // Update is called once per frame
