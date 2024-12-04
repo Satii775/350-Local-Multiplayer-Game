@@ -19,7 +19,10 @@ public class Zombies_Manager : MonoBehaviour
     void Start()
     {
         WinScreen = GameObject.FindWithTag("Win menu");
-        WinScreen.SetActive(false);
+        if (WinScreen == null)
+        {
+            Debug.LogWarning("Win menu not found");
+        }
         Zombies = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log("Zombies: " + Zombies.Length);
 
@@ -98,5 +101,12 @@ public class Zombies_Manager : MonoBehaviour
     public void KillZombie()
     {
         zombiesAlive--;
+    }
+
+    // Draw the spawn area in the Scene view
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(spawnAreaCenter, spawnAreaSize);
     }
 }

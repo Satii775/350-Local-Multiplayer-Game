@@ -13,9 +13,13 @@ public class Player : MonoBehaviour
 
     private GameObject lostMenu;
 
+    private GameObject player;
+
     private void Awake()
     {
         ResetHealth(); // Initialize health to maxHealth
+
+        player = this.gameObject;
 
         lostMenu = GameObject.FindWithTag("Lost menu");
         if (lostMenu != null)
@@ -92,6 +96,12 @@ public class Player : MonoBehaviour
     public void ResetHealth()
     {
         currentHealth = maxHealth;
+        Debug.Log("Player health reset to max.");
+    }
+
+    public void RespawnPlayer()
+    {
+        currentHealth = 50;
         Debug.Log("Player health reset to max.");
     }
 

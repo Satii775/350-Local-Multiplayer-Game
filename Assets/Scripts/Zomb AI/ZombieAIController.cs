@@ -19,13 +19,13 @@ public class ZombieAIController : MonoBehaviour
     public float wanderTimer = 5f;         // Time between each wander action
     public float wanderSpeed = 2.0f;       // Speed when wandering
     public float attackRange = 1.5f;       // Distance within which the zombie can attack
-    public float damage = 10f;             // Damage dealt per attack
+    public float damage = 5f;             // Damage dealt per attack
     public float attacksPerSecond = 1f;    // Number of attacks per second
     public float playerDetectionRange = 10f; // Detection range for player
     public float bodyDetectionRange = 10f;  // Detection range for bodies
 
     [Header("Game Objects")]
-    private GameObject player;             // Cached reference to the player
+    public GameObject[] players;             // Cached reference to the player
     public GameObject Zombie;             // Cached reference to the Zombie
     public GameObject Zomb_Spawner;
 
@@ -36,7 +36,7 @@ public class ZombieAIController : MonoBehaviour
     void Start()
     {
         // Cache player reference to avoid repeated FindWithTag calls
-        player = GameObject.FindWithTag("Player");
+        players = GameObject.FindGameObjectsWithTag("Player");
 
         Zomb_Spawner = GameObject.FindWithTag("Zomb Manager");
 
@@ -48,9 +48,9 @@ public class ZombieAIController : MonoBehaviour
             return;
         }
 
-        if (player == null)
+        if (players == null)
         {
-            Debug.LogError("Player not found in the scene. Please ensure there is a GameObject tagged 'Player'.");
+            Debug.LogError("Players not found in the scene. Please ensure there is a GameObject tagged 'Player'.");
             return;
         }
 
@@ -116,33 +116,32 @@ public class ZombieAIController : MonoBehaviour
         _currentState.Enter();
     }
 
-    // Detect whether the player is within the zombie's vision range
+    // Detect whether any player is within the zombie's vision range
     public bool IsPlayerInSight()
     {
-        if (player == null) return false;
+        if (players == null || players.Length == 0) return false;
 
-        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-        float fieldOfView = 270f;
-
-        if (angleToPlayer > fieldOfView / 2)
+        foreach (var player in players)
         {
-            return false;
-        }
+            Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+            float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+            float fieldOfView = 270f;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distanceToPlayer > visionRange)
-        {
-            return false;
-        }
-
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up, directionToPlayer, out hit, visionRange))
-        {
-            if (hit.collider.CompareTag("Player"))
+            if (angleToPlayer <= fieldOfView / 2)
             {
-                return true;
+                float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+                if (distanceToPlayer <= visionRange)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(transform.position + Vector3.up, directionToPlayer, out hit, visionRange))
+                    {
+                        if (hit.collider.CompareTag("Player"))
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
         }
 
@@ -167,10 +166,17 @@ public class ZombieAIController : MonoBehaviour
 
     public bool IsWithinAttackRange()
     {
-        if (player == null) return false;
+        if (players == null || players.Length == 0) return false;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        return distanceToPlayer <= attackRange;
+        foreach (var player in players)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= attackRange)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Switch to AttackPlayerState when the zombie is in range to attack
@@ -181,11 +187,17 @@ public class ZombieAIController : MonoBehaviour
 
     public bool IsPlayerInRange(float range)
     {
-        if (player == null) return false;
+        if (players == null || players.Length == 0) return false;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        return distanceToPlayer <= range;
+        foreach (var player in players)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= range)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Animator control methods

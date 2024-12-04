@@ -36,10 +36,24 @@ public class FollowPlayerState : State
 
     private void MoveToPlayer()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        if (_controller.players == null || _controller.players.Length == 0) return;
+
+        GameObject closestPlayer = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var player in _controller.players)
         {
-            _navMeshAgent.SetDestination(player.transform.position);  // Set destination to the player's position
+            float distanceToPlayer = Vector3.Distance(_controller.transform.position, player.transform.position);
+            if (distanceToPlayer < closestDistance)
+            {
+                closestDistance = distanceToPlayer;
+                closestPlayer = player;
+            }
+        }
+
+        if (closestPlayer != null)
+        {
+            _navMeshAgent.SetDestination(closestPlayer.transform.position);  // Set destination to the closest player's position
         }
     }
 }

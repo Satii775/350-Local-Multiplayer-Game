@@ -1034,8 +1034,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3758233def3bd9a46a89d1f300695271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnAreaCenter: {x: 20.75, y: 0, z: -532.945}
-  spawnAreaSize: {x: 0, y: 0, z: 0}
+  spawnAreaCenter: {x: 21.4, y: 0, z: -534.8}
+  spawnAreaSize: {x: 66.1, y: 0, z: 26.1}
+  round: 1
+  zombiesToSpawn: 5
 --- !u!4 &96355965
 Transform:
   m_ObjectHideFlags: 0
@@ -11290,6 +11292,10 @@ PrefabInstance:
       propertyPath: m_DefaultControlScheme
       value: Keyboard
       objectReference: {fileID: 0}
+    - target: {fileID: 8229538667035832419, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40.15
@@ -11300,7 +11306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -542.55
+      value: -537.64
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22489,9 +22495,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8229538667035832419, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.4
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22499,7 +22509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -542.55
+      value: -539.45
       objectReference: {fileID: 0}
     - target: {fileID: 8276566427514173961, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_LocalRotation.w
