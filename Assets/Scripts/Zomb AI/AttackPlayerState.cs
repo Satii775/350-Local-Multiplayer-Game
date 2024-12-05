@@ -64,6 +64,7 @@ public class AttackPlayerState : State
             if (playerScript != null)
             {
                 playerScript.TakeDamage(damage);  // Apply damage
+                Debug.Log("Player took " + damage + " damage!");
             }
         }
     }

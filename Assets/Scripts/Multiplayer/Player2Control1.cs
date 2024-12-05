@@ -53,6 +53,8 @@ public class Player2Control1 : MonoBehaviour
         {
             Debug.LogError("No Camera assigned to the player! Please assign a camera in the Inspector.");
         }
+
+        Cursor.visible = false;
     }
 
     void Update()

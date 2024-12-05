@@ -19,7 +19,7 @@ public class ZombieAIController : MonoBehaviour
     public float wanderTimer = 5f;         // Time between each wander action
     public float wanderSpeed = 2.0f;       // Speed when wandering
     public float attackRange = 1.5f;       // Distance within which the zombie can attack
-    public float damage = 5f;             // Damage dealt per attack
+    public float damage = 2f;             // Damage dealt per attack
     public float attacksPerSecond = 1f;    // Number of attacks per second
     public float playerDetectionRange = 10f; // Detection range for player
     public float bodyDetectionRange = 10f;  // Detection range for bodies
