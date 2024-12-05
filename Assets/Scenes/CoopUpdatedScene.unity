@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17003,8 +17003,8 @@ MonoBehaviour:
   player: {fileID: 1966600192}
   playerCamera: {fileID: 928984253}
   movementSpeed: 5
-  rotationSpeed: 20
-  lookUpDownSpeed: 50
+  rotationSpeed: 10
+  lookUpDownSpeed: 10
   jumpPower: 5
   jumpCooldown: 2
   dashSpeed: 20
@@ -23034,6 +23034,14 @@ PrefabInstance:
       propertyPath: movement
       value: 
       objectReference: {fileID: -6257354158172098788, guid: 0859f60a4c4cfdd4c9b5357e83daef02, type: 3}
+    - target: {fileID: 4178411284469976781, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: rotationSpeed
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4178411284469976781, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
+      propertyPath: lookUpDownSpeed
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 4784452513059903463, guid: 4b16d5c8046e6e24499ac77a91e11e1a, type: 3}
       propertyPath: m_Name
       value: CoopPlayer

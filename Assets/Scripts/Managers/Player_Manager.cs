@@ -41,7 +41,7 @@ public class Player_Manager : MonoBehaviour
                 playerScript.RespawnPlayer();
             }
         }
-        players.RemoveAll(item => item == null);
+        players.Clear(); // Clear the list after processing
     }
 
     void FixedUpdate()
