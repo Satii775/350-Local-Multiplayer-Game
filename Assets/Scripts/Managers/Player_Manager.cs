@@ -41,6 +41,7 @@ public class Player_Manager : MonoBehaviour
                 playerScript.RespawnPlayer();
             }
         }
+        players.RemoveAll(item => item == null);
     }
 
     void FixedUpdate()
