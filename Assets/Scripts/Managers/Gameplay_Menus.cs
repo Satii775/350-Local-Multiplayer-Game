@@ -11,6 +11,7 @@ public class Gameplay_Menus : MonoBehaviour
         // Reload the current scene
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+        Time.timeScale = 1;
     }
 
     public void ExitGame()

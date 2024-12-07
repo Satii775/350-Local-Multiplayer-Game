@@ -10,8 +10,8 @@ public class Zombies_Manager : MonoBehaviour
     [SerializeField] private Vector3 spawnAreaSize;
 
     public int round = 9;
-    public int zombiesToSpawn = 45;
-    private int zombiesAlive = 45;
+    public int zombiesToSpawn = 5;
+    private int zombiesAlive = 5;
     private bool roundStart = true;
     private GameObject WinScreen;
 
@@ -66,6 +66,7 @@ public class Zombies_Manager : MonoBehaviour
         if (zombiesToSpawn == 50 && zombiesAlive <= 0)
         {
             WinScreen.SetActive(true);
+            manager.GetComponent<Player_Manager>().win = true;
             Time.timeScale = 0;
             Cursor.visible = true;
         }
@@ -74,6 +75,7 @@ public class Zombies_Manager : MonoBehaviour
             roundStart = false;
             StartCoroutine(WaitAndSpawnZombies());
         }
+        Debug.Log("Zombie number " + zombiesAlive);
     }
 
     IEnumerator WaitAndSpawnZombies()
@@ -82,12 +84,12 @@ public class Zombies_Manager : MonoBehaviour
         yield return new WaitForSeconds(10); // Wait for 10 seconds
         round++;
         zombiesToSpawn += 5; // Increase the number of zombies to spawn by 5 each round
+        zombiesAlive = zombiesToSpawn;
         StartCoroutine(SpawnZombies(round));
     }
 
     IEnumerator SpawnZombies(int round)
     {
-        zombiesAlive = zombiesToSpawn;
         for (int i = 0; i < zombiesToSpawn; i++)
         {
             GameObject zombie = Zombies[i];

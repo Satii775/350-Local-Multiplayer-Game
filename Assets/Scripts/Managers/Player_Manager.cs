@@ -7,6 +7,8 @@ public class Player_Manager : MonoBehaviour
 
     private GameObject lostMenu;
 
+    public bool win = false;
+
     void Awake()
     {
         Debug.Log("PlayerManager Awake called");
@@ -48,10 +50,20 @@ public class Player_Manager : MonoBehaviour
     {
         if (players.Count == 2)
         {
+            Cursor.lockState = CursorLockMode.None;
             lostMenu.SetActive(true);
             Time.timeScale = 0;
             Cursor.visible = true;
         }
+        else if ( win == false)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if ( win == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
     }
 
     private GameObject FindInactiveObjectByTag(string tag)
