@@ -50,8 +50,8 @@ public class Player_Manager : MonoBehaviour
         {
             lostMenu.SetActive(true);
             Time.timeScale = 0;
+            Cursor.visible = true;
         }
-        Cursor.visible = true;
     }
 
     private GameObject FindInactiveObjectByTag(string tag)

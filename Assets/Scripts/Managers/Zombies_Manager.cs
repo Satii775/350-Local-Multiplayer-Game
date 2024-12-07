@@ -67,6 +67,7 @@ public class Zombies_Manager : MonoBehaviour
         {
             WinScreen.SetActive(true);
             Time.timeScale = 0;
+            Cursor.visible = true;
         }
         if (zombiesAlive <= 0 && roundStart == true)
         {
