@@ -8,6 +8,8 @@ public class Zombies_Manager : MonoBehaviour
     private GameObject[] Zombies;
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
+    [serializeField] private int zombiesperRound = 10;
+    [serializeField] private int maxZombies = 50;
 
     public int round = 9;
     public int zombiesToSpawn = 5;
@@ -20,6 +22,7 @@ public class Zombies_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        zombiesToSpawn = zombiesperRound;
         manager = GameObject.FindWithTag("Manager");
         if (manager == null)
         {
@@ -63,7 +66,7 @@ public class Zombies_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (zombiesToSpawn == 50 && zombiesAlive <= 0)
+        if (zombiesToSpawn >= maxZombies && zombiesAlive <= 0)
         {
             WinScreen.SetActive(true);
             manager.GetComponent<Player_Manager>().win = true;
@@ -83,7 +86,7 @@ public class Zombies_Manager : MonoBehaviour
         manager.GetComponent<Player_Manager>().PlayersRevived();
         yield return new WaitForSeconds(10); // Wait for 10 seconds
         round++;
-        zombiesToSpawn += 5; // Increase the number of zombies to spawn by 5 each round
+        zombiesToSpawn += zombiesperRound; // Increase the number of zombies to spawn by 5 each round
         zombiesAlive = zombiesToSpawn;
         StartCoroutine(SpawnZombies(round));
     }
