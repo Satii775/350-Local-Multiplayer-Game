@@ -22,6 +22,7 @@ public class AttackPlayerState : State
         Debug.Log("Entering Attack Player State");
         _controller.SetIsAttacking(true);  // Set attacking animation
         _navMeshAgent.isStopped = true;    // Stop movement when attacking
+
     }
 
     public override void Execute()

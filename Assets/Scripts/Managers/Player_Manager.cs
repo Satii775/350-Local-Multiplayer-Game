@@ -11,21 +11,22 @@ public class Player_Manager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("PlayerManager Awake called");
+        //Debug.Log("PlayerManager Awake called");
     }
 
     void Start()
     {
-        Debug.Log("PlayerManager Start called");
+        //Debug.Log("PlayerManager Start called");
         lostMenu = FindInactiveObjectByTag("Lost menu");
         if (lostMenu == null)
         {
-            Debug.LogWarning("Lost Menu not found in the scene.");
+            //Debug.LogWarning("Lost Menu not found in the scene.");
         }
         else
         {
-            Debug.Log("Lost Menu found successfully.");
+            //Debug.Log("Lost Menu found successfully.");
         }
+        win = false;
     }
 
     public void PlayerDied(GameObject player)
@@ -46,7 +47,7 @@ public class Player_Manager : MonoBehaviour
         players.Clear(); // Clear the list after processing
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (players.Count == 2)
         {
@@ -59,7 +60,7 @@ public class Player_Manager : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-        else if ( win == true)
+        else
         {
             Cursor.lockState = CursorLockMode.None;
         }

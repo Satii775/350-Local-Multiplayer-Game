@@ -16,7 +16,7 @@ public class WanderState : State
 
     public override void Enter()
     {
-        Debug.Log("Entering Wander State");
+        //Debug.Log("Entering Wander State");
 
         if (_controller.hasDied == true)
         {

@@ -11,7 +11,7 @@ public class IdleState : State
 
     public override void Enter()
     {
-        Debug.Log("Entering Idle State");
+        //Debug.Log("Entering Idle State");
     }
 
 

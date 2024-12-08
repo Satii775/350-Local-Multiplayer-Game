@@ -11,7 +11,7 @@ public class DieState : State
 
     public override void Enter()
     {
-        Debug.Log("Entering Die State");
+        //Debug.Log("Entering Die State");
 
         // Stop the NavMeshAgent and all movement
         _navMeshAgent.isStopped = true;
@@ -66,6 +66,6 @@ public class DieState : State
     public override void Exit()
     {
         // This state should never exit since the zombie is dead
-        Debug.LogWarning("Zombie can't exit the Die state.");
+        //Debug.LogWarning("Zombie can't exit the Die state.");
     }
 }

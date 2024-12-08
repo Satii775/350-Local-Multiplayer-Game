@@ -1,5 +1,5 @@
 {
-    "name": "Contolzzzz 1",
+    "name": "Player2FPSControls",
     "maps": [
         {
             "name": "Player",
@@ -144,7 +144,7 @@
                 {
                     "name": "",
                     "id": "fb596bf8-7339-4955-8436-0dd7e4296dd6",
-                    "path": "<Mouse>/forwardButton",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

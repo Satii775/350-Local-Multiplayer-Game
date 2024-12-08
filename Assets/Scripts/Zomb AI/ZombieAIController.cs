@@ -14,11 +14,11 @@ public class ZombieAIController : MonoBehaviour
 
     // Adjustable parameters for behaviors
     public float chaseSpeed = 4.5f;        // Speed when chasing the player
-    public float visionRange = 15f;        // Range within which the zombie can spot the player
+    public float visionRange = 1000f;        // Range within which the zombie can spot the player
     public float wanderRadius = 20f;       // Radius for random wandering
     public float wanderTimer = 5f;         // Time between each wander action
     public float wanderSpeed = 2.0f;       // Speed when wandering
-    public float attackRange = 1.5f;       // Distance within which the zombie can attack
+    public float attackRange = 3f;       // Distance within which the zombie can attack
     public float damage = 2f;             // Damage dealt per attack
     public float attacksPerSecond = 1f;    // Number of attacks per second
     public float playerDetectionRange = 10f; // Detection range for player
@@ -125,9 +125,9 @@ public class ZombieAIController : MonoBehaviour
         {
             Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
             float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-            float fieldOfView = 270f;
+            float fieldOfView = 360;
 
-            if (angleToPlayer <= fieldOfView / 2)
+            if (angleToPlayer <= fieldOfView)
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 

@@ -8,8 +8,8 @@ public class Zombies_Manager : MonoBehaviour
     private GameObject[] Zombies;
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
-    [serializeField] private int zombiesperRound = 10;
-    [serializeField] private int maxZombies = 50;
+    [SerializeField] private int zombiesperRound = 10;
+    [SerializeField] private int maxZombies = 50;
 
     public int round = 9;
     public int zombiesToSpawn = 5;
@@ -78,13 +78,13 @@ public class Zombies_Manager : MonoBehaviour
             roundStart = false;
             StartCoroutine(WaitAndSpawnZombies());
         }
-        Debug.Log("Zombie number " + zombiesAlive);
+        //Debug.Log("Zombie number " + zombiesAlive);
     }
 
     IEnumerator WaitAndSpawnZombies()
     {
         manager.GetComponent<Player_Manager>().PlayersRevived();
-        yield return new WaitForSeconds(10); // Wait for 10 seconds
+        yield return new WaitForSeconds(5); // Wait for 10 seconds
         round++;
         zombiesToSpawn += zombiesperRound; // Increase the number of zombies to spawn by 5 each round
         zombiesAlive = zombiesToSpawn;
